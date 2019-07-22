@@ -11,4 +11,11 @@ class Communication
     @color = color
     @sent_at = sent_at
   end
+
+  def communication_price
+    price = 0.1
+    price += 0.18 if @color
+    price += ((pages_number - 1) * 0.07)
+    practitioner.express_delivery ? price + 0.6 : price
+  end
 end

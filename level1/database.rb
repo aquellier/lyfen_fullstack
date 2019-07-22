@@ -3,6 +3,7 @@
 require 'date'
 require_relative 'models/practitioner'
 require_relative 'models/communication'
+require_relative './revenue'
 
 # Acting as a DB, interacting with json file
 class Database
@@ -11,6 +12,14 @@ class Database
     @practitioners = []
     @communications = []
     parse_and_load_data if File.exist?(@json_file)
+  end
+
+  def save_to_json
+    revenues_hash = {}
+    revenues_hash[:totals] = ::Revenue.new.calculate_revenue(@communications)
+    File.open('output.json', 'w') do |f|
+      f.write(JSON.pretty_generate(revenues_hash))
+    end
   end
 
   private
