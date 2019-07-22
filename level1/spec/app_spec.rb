@@ -2,7 +2,7 @@
 
 require 'rspec'
 
-require_relative './app.rb'
+require_relative '../app.rb'
 
 RSpec.describe "Prices calculator", type: :model do
   let(:data)          { JSON.parse(File.read('data.json')) }
